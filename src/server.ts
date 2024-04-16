@@ -1,11 +1,12 @@
 import fastify from 'fastify'
-import { knex } from './database'
+import cookie from '@fastify/cookie'
 import { env } from './env'
 import { transactionsRoutes } from './routes/transactions'
 
 const app = fastify()
 
 // Ensure plugins are registered in the correct order
+app.register(cookie)
 app.register(transactionsRoutes, { prefix: '/transactions' })
 
 app.listen({ port: env.PORT }).then(() => {
